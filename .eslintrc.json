@@ -1,3 +1,8 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "./node_modules/standard/eslintrc.json"],
+  "rules": {
+    "multiline-ternary": "off",
+    "space-before-function-paren": "off",
+    "no-extra-boolean-cast": "off"
+  }
 }
