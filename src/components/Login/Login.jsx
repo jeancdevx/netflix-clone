@@ -52,77 +52,73 @@ const Login = () => {
   }, [name, email, password, login])
 
   return (
-    <article className='flex justify-center'>
-      <div className='bg-black bg-opacity-70 px-12 py-16 self-center mt-2 md:w-full md:max-w-xl rounded-md w-full'>
-        <h2 className='text-white text-4xl mb-8 font-bold'>
-          {variant === 'login' ? 'Sign in' : 'Sign up'}
-        </h2>
+    <article className='bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full'>
+      <h2 className='text-white text-4xl mb-8 font-semibold'>
+        {variant === 'login' ? 'Sign in' : 'Register'}
+      </h2>
 
-        <form
-          className='flex flex-col gap-4'
-          onSubmit={(e) => e.preventDefault()}
-        >
-          {variant === 'register' && (
-            <Input
-              label='Username'
-              onChange={(e) => setName(e.target.value)}
-              id='name'
-              type='text'
-              value={name}
-            />
-          )}
+      <form className='flex flex-col gap-4'>
+        {variant === 'register' && (
           <Input
-            label='Email'
-            onChange={(e) => setEmail(e.target.value)}
-            id='email'
-            type='email'
-            value={email}
+            id='name'
+            type='text'
+            label='Username'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
-          <Input
-            label='Password'
-            onChange={(e) => setPassword(e.target.value)}
-            id='password'
-            type='password'
-            value={password}
-          />
-        </form>
+        )}
+        <Input
+          id='email'
+          type='email'
+          label='Email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type='password'
+          id='password'
+          label='Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </form>
 
-        <button
-          onClick={variant === 'login' ? login : register}
-          className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition font-semibold'
+      <button
+        onClick={() => {
+          setLoading(true)
+          variant === 'login' ? login() : register()
+        }}
+        className='bg-red-600 py-3 font-bold text-lg text-white rounded-md w-full mt-10 hover:bg-red-700 transition'
+      >
+        {variant === 'login' ? 'Login' : 'Sign up'}
+      </button>
+
+      <section className='flex flex-row items-center gap-4 mt-8 justify-center'>
+        <article
+          onClick={() => signIn('google', { callbackUrl: '/profiles' })}
+          className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
         >
-          {variant === 'login' ? 'Sign in' : 'Sign up'}
-        </button>
+          <FcGoogle size={32} />
+        </article>
+        <article
+          onClick={() => signIn('github', { callbackUrl: '/profiles' })}
+          className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+        >
+          <FaGithub size={32} />
+        </article>
+      </section>
 
-        <footer className='flex flex-row items-center justify-center gap-4 mt-6 mb-6'>
-          <button
-            onClick={() => signIn('google', { callbackUrl: '/profiles' })}
-            className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
-          >
-            <FcGoogle size={30} />
-          </button>
-          <button
-            onClick={() => signIn('github', { callbackUrl: '/profiles' })}
-            className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
-          >
-            <FaGithub size={30} />
-          </button>
-        </footer>
+      <p className='text-white text-center mt-8 font-bold'>
+        {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
+        <span
+          onClick={toggleVariant}
+          className='text-red-600 cursor-pointer hover:opacity-80 transition'
+        >
+          {variant === 'login' ? ' Sign up now.' : ' Sign in now.'}
+        </span>
+      </p>
 
-        <p className='text-neutral-500 font-semibold text-center mt-4'>
-          {variant === 'login'
-            ? "Don't have an account? "
-            : 'Already have an account? '}
-          <span
-            className='text-white hover:text-red-600 transition cursor-pointer'
-            onClick={toggleVariant}
-          >
-            {variant === 'login' ? 'Sign up' : 'Sign in'}
-          </span>
-        </p>
-
-        {loading && <Loader />}
-      </div>
+      {loading && <Loader />}
     </article>
   )
 }

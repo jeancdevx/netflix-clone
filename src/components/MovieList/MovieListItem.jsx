@@ -1,23 +1,26 @@
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { BsFillPlayFill } from 'react-icons/bs'
 import FavoriteButton from '../Favorite/FavoriteButton'
+import useInfoModal from '../Modal/useInfoModal.hook'
 
 const MovieListItem = ({ id, thumbnailUrl, title, duration, genre }) => {
   const router = useRouter()
+  const { openModal } = useInfoModal()
 
   const redirectToWatch = useCallback(() => {
     router.push(`/watch/${id}`)
   }, [id, router])
 
   return (
-    <article className='group bg-zinc-900 col-span relative h-[12vw]'>
+    <article className='group bg-zinc-900 col-span relative md:h-[12vw] h-[50vw]'>
       <img
         onClick={redirectToWatch}
         src={thumbnailUrl}
         alt='Movie'
         draggable={false}
-        className='cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-100 w-full h-[12vw]
+        className='cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-100 w-full h-full
       '
       />
 
@@ -38,7 +41,7 @@ const MovieListItem = ({ id, thumbnailUrl, title, duration, genre }) => {
           <article className='flex flex-row items-center gap-3'>
             <button
               className='cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition duration-200 hover:bg-neutral-300'
-              onClick={() => {}}
+              onClick={redirectToWatch}
             >
               <BsFillPlayFill
                 className='text-black'
@@ -47,6 +50,16 @@ const MovieListItem = ({ id, thumbnailUrl, title, duration, genre }) => {
             </button>
 
             <FavoriteButton movieId={id} />
+
+            <button
+              className='cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 bg-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300'
+              onClick={() => openModal(id)}
+            >
+              <AiOutlineInfoCircle
+                className='text-black'
+                size={30}
+              />
+            </button>
           </article>
 
           <p className='text-green-400 font-bold text-lg lg:text-2xl mt-2'>
