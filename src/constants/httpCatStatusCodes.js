@@ -1,0 +1,17 @@
+import HTTP_STATUS_CODES from './httpStatusCodes'
+
+const HTTP_CAT_STATUS_CODES = {
+  OK: `https://http.cat/${HTTP_STATUS_CODES.OK}`,
+  CREATED: `https://http.cat/${HTTP_STATUS_CODES.CREATED}`,
+  NO_CONTENT: `https://http.cat/${HTTP_STATUS_CODES.NO_CONTENT}`,
+  FOUND: `https://http.cat/${HTTP_STATUS_CODES.FOUND}`,
+  BAD_REQUEST: `https://http.cat/${HTTP_STATUS_CODES.BAD_REQUEST}`,
+  UNAUTHORIZED: `https://http.cat/${HTTP_STATUS_CODES.UNAUTHORIZED}`,
+  FORBIDDEN: `https://http.cat/${HTTP_STATUS_CODES.FORBIDDEN}`,
+  NOT_FOUND: `https://http.cat/${HTTP_STATUS_CODES.NOT_FOUND}`,
+  METHOD_NOT_ALLOWED: `https://http.cat/${HTTP_STATUS_CODES.METHOD_NOT_ALLOWED}`,
+  CONFLICT: `https://http.cat/${HTTP_STATUS_CODES.CONFLICT}`,
+  INTERNAL_SERVER_ERROR: `https://http.cat/${HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR}`
+}
+
+export default HTTP_CAT_STATUS_CODES
